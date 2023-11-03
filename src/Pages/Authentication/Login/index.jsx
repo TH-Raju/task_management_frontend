@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import toast, { Toaster } from "react-hot-toast";
+import PrivateRoute from "../../../SecureRoute/PrivateRoute";
 
 const Login = () => {
   const { register, handleSubmit, reset } = useForm();
@@ -58,7 +59,7 @@ const Login = () => {
         <div className="mx-auto max-w-lg text-center">
           <h1 className="text-2xl font-bold sm:text-3xl">Log in</h1>
         </div>
-
+        <PrivateRoute />
         <form
           onSubmit={handleSubmit(onSubmit)}
           action=""
