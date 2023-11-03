@@ -1,10 +1,58 @@
+/* eslint-disable no-unused-vars */
 import { useContext } from "react";
 import { ContextData } from "../../Context";
 import { SunIcon } from "@heroicons/react/24/solid";
-import { menuItems } from "../MenuItems";
+import Cookies from "universal-cookie";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const cookies = new Cookies();
+  const userEmail = cookies.get("email");
   const { siteName, theme, setTheme } = useContext(ContextData);
+  const navigate = useNavigate();
+
+  const menuItems = (
+    <>
+      <li>
+        <Link to="/">
+          <p>Home</p>
+        </Link>
+      </li>
+      {userEmail ? (
+        <>
+          <li className="">
+            <button
+              onClick={() => handleLogout()}
+              className="hover:bg-red-700 hover:text-white bg-red-500    rounded-lg duration-100"
+            >
+              <span>Log out</span>
+            </button>
+          </li>
+        </>
+      ) : (
+        <>
+          <li>
+            <Link to="/login">
+              <p>Log in</p>
+            </Link>
+          </li>
+          <li>
+            <Link to="/signup">
+              <p>Sign Up</p>
+            </Link>
+          </li>
+        </>
+      )}
+    </>
+  );
+
+  const handleLogout = async () => {
+    cookies.remove("email", { path: "/" });
+    cookies.remove("name", { path: "/" });
+    cookies.remove("role", { path: "/" });
+    localStorage.clear();
+    navigate("/login");
+  };
 
   return (
     <div className="">

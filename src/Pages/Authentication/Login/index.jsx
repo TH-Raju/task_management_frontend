@@ -59,7 +59,7 @@ const Login = () => {
         <div className="mx-auto max-w-lg text-center">
           <h1 className="text-2xl font-bold sm:text-3xl">Log in</h1>
         </div>
-        <PrivateRoute />
+
         <form
           onSubmit={handleSubmit(onSubmit)}
           action=""
