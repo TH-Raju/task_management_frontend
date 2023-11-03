@@ -23,34 +23,34 @@ const Login = () => {
   const onSubmit = async (data) => {
     // console.log(data);
     // setLoading(true);
-    // fetch("http://localhost:5000/api/v1/login", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(data),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     // console.log(data);
-    //     if (data.success) {
-    //       toast.success("Log in Successful.");
-    //       cookies.set("email", data?.data.email, { path: "/" });
-    //       cookies.set("name", data?.data.name, { path: "/" });
-    //       cookies.set("role", data?.data.role, { path: "/" });
-    //       localStorage.setItem("photo", data?.data.photo);
-    //       localStorage.setItem(
-    //         "accessToken",
-    //         `bearer ${data?.data.accessToken}`
-    //       );
-    //       reset();
-    //       setLoading(false);
-    //       navigate("/");
-    //     } else {
-    //       setLoading(false);
-    //       setErrorMsg(data.message);
-    //     }
-    //   });
+    fetch("http://localhost:5000/api/v1/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data);
+        if (data.success) {
+          console.log(data);
+          toast.success("Log in Successful.");
+          cookies.set("email", data?.data.email, { path: "/" });
+          cookies.set("name", data?.data.name, { path: "/" });
+          cookies.set("role", data?.data.role, { path: "/" });
+          localStorage.setItem(
+            "accessToken",
+            `bearer ${data?.data.accessToken}`
+          );
+          reset();
+          setLoading(false);
+          navigate("/");
+        } else {
+          setLoading(false);
+          setErrorMsg(data.message);
+        }
+      });
   };
   return (
     <section className="relative m-16 flex flex-wrap lg:h-screen lg:items-center min-h-screen">
