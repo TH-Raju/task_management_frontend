@@ -1,12 +1,14 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unescaped-entities */
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import toast, { Toaster } from "react-hot-toast";
+import { ContextData } from "../../../Context";
 
 const Signup = () => {
+  const { theme } = useContext(ContextData);
   const { register, handleSubmit, reset } = useForm();
   const [errorMsg, setErrorMsg] = useState("");
   const [visible, setVisible] = useState(false);
@@ -33,7 +35,7 @@ const Signup = () => {
         // console.log(data);
         if (data.success) {
           toast.success("Account create Successful.");
-        //   console.log(data?.data.email);
+          //   console.log(data?.data.email);
           cookies.set("email", data?.data.email, { path: "/" });
           cookies.set("name", data?.data.name, { path: "/" });
           cookies.set("role", data?.data.role, { path: "/" });
@@ -44,7 +46,7 @@ const Signup = () => {
           );
           reset();
           //   setLoading(false);
-          //   navigate("/");
+          navigate("/");
         } else {
           //   setLoading(false);
           setErrorMsg(data.message);
@@ -52,8 +54,8 @@ const Signup = () => {
       });
   };
   return (
-    <section className="relative m-16 flex flex-wrap lg:h-screen lg:items-center min-h-screen">
-      <div className="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24">
+    <section className="relative  flex justify-center items-center">
+      <div className="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 ">
         <div className="mx-auto max-w-lg text-center">
           <h1 className="text-2xl font-bold sm:text-3xl">
             Create Your Account
@@ -66,7 +68,7 @@ const Signup = () => {
           className="mx-auto mb-0 mt-8 max-w-md space-y-4"
         >
           <div>
-            <label className="block text-black my-2 font-bold">
+            <label className={`block ${theme ? "text-black": "text-white"} my-2 font-bold`}>
               Name <span className="text-red-600">*</span>
             </label>
             <div className="relative">
@@ -79,7 +81,7 @@ const Signup = () => {
             </div>
           </div>
           <div>
-            <label className="block text-black my-2 font-bold">
+            <label className={`block ${theme ? "text-black": "text-white"} my-2 font-bold`}>
               Email <span className="text-red-600">*</span>
             </label>
             <div className="relative">
@@ -93,7 +95,7 @@ const Signup = () => {
           </div>
 
           <div>
-            <label className="block text-black my-2 font-bold">
+            <label className={`block ${theme ? "text-black": "text-white"} my-2 font-bold`}>
               Password <span className="text-red-600">*</span>
             </label>
             <div className="relative">

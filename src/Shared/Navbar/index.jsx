@@ -23,7 +23,7 @@ const Navbar = () => {
           <li className="">
             <button
               onClick={() => handleLogout()}
-              className="hover:bg-red-700 hover:text-white bg-red-500    rounded-lg duration-100"
+              className="hover:bg-red-700 hover:text-white bg-red-500  my-2 md:my-0  rounded-lg duration-100"
             >
               <span>Log out</span>
             </button>
@@ -85,7 +85,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <div className="navbar bg-gray-400 lg:-mt-8">
+      <div className="navbar bg-gray-400 lg:-mt-10">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
