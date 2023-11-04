@@ -23,13 +23,16 @@ const Signup = () => {
   }
   const onSubmit = async (data) => {
     // console.log(data);
-    fetch("http://localhost:5000/api/v1/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
+    fetch(
+      "https://task-manage-backend-dh7dvo8tt-th-raju.vercel.app/api/v1/signup",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);
@@ -49,6 +52,7 @@ const Signup = () => {
           navigate("/");
         } else {
           //   setLoading(false);
+          toast.error("Failed to Create Account");
           setErrorMsg(data.message);
         }
       });
@@ -68,7 +72,11 @@ const Signup = () => {
           className="mx-auto mb-0 mt-8 max-w-md space-y-4"
         >
           <div>
-            <label className={`block ${theme ? "text-black": "text-white"} my-2 font-bold`}>
+            <label
+              className={`block ${
+                theme ? "text-black" : "text-white"
+              } my-2 font-bold`}
+            >
               Name <span className="text-red-600">*</span>
             </label>
             <div className="relative">
@@ -81,7 +89,11 @@ const Signup = () => {
             </div>
           </div>
           <div>
-            <label className={`block ${theme ? "text-black": "text-white"} my-2 font-bold`}>
+            <label
+              className={`block ${
+                theme ? "text-black" : "text-white"
+              } my-2 font-bold`}
+            >
               Email <span className="text-red-600">*</span>
             </label>
             <div className="relative">
@@ -95,7 +107,11 @@ const Signup = () => {
           </div>
 
           <div>
-            <label className={`block ${theme ? "text-black": "text-white"} my-2 font-bold`}>
+            <label
+              className={`block ${
+                theme ? "text-black" : "text-white"
+              } my-2 font-bold`}
+            >
               Password <span className="text-red-600">*</span>
             </label>
             <div className="relative">

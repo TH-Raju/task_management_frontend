@@ -22,7 +22,9 @@ const Task = () => {
   const { data: tasks = [], refetch } = useQuery({
     queryKey: ["tasks"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/api/v1/task");
+      const res = await fetch(
+        "https://task-manage-backend-dh7dvo8tt-th-raju.vercel.app/api/v1/task"
+      );
       const data = await res.json();
       //   if (data) {
       //     console.log(data);
@@ -43,12 +45,15 @@ const Task = () => {
     setDeleteUser(null);
   };
   const handleDeleteUser = (task) => {
-    fetch(`http://localhost:5000/api/v1/task/${task._id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    fetch(
+      `https://task-manage-backend-dh7dvo8tt-th-raju.vercel.app/api/v1/task/${task._id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -82,7 +87,7 @@ const Task = () => {
 
   return (
     <div>
-        <div className="flex justify-end gap-4 mb-2 mr-3 items-center">
+      <div className="flex justify-end gap-4 mb-2 mr-3 items-center">
         {start > 1 && (
           <button className="btn btn-sm btn-primary" onClick={() => pagiBack()}>
             {"<"}

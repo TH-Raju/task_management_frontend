@@ -26,21 +26,25 @@ const Login = () => {
   const onSubmit = async (data) => {
     // console.log(data);
     // setLoading(true);
-    fetch("http://localhost:5000/api/v1/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
+    fetch(
+      "https://task-manage-backend-dh7dvo8tt-th-raju.vercel.app/api/v1/login",
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data);
+        console.log(data);
         if (data.success) {
-          console.log(data);
+          // console.log(data);
           toast.success("Log in Successful.");
           cookies.set("email", data?.data.email, { path: "/" });
-          setUserId(data?.data._id)
+          setUserId(data?.data._id);
           cookies.set("name", data?.data.name, { path: "/" });
           cookies.set("role", data?.data.role, { path: "/" });
           cookies.set("id", data?.data._id, { path: "/" });
@@ -52,7 +56,7 @@ const Login = () => {
           setLoading(false);
           navigate("/");
         } else {
-          setLoading(false);
+          toast.error("Login Failed");
           setErrorMsg(data.message);
         }
       });
