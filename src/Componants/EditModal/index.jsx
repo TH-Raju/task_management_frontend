@@ -15,7 +15,7 @@ const EditModal = ({ id, task, refetch }) => {
     // console.log(data);
     // console.log(id);
     fetch(
-      `https://task-manage-r5jxfqrod-th-raju.vercel.app/api/v1/task/update/${data?.id}`,
+      `https://task-manage-9e14yw343-th-raju.vercel.app/api/v1/task/update/${data?.id}`,
       {
         method: "PATCH",
         headers: {

@@ -23,7 +23,7 @@ const Task = () => {
     queryKey: ["tasks"],
     queryFn: async () => {
       const res = await fetch(
-        "https://task-manage-r5jxfqrod-th-raju.vercel.app/api/v1/task"
+        "https://task-manage-9e14yw343-th-raju.vercel.app/api/v1/task"
       );
       const data = await res.json();
       //   if (data) {
@@ -46,7 +46,7 @@ const Task = () => {
   };
   const handleDeleteUser = (task) => {
     fetch(
-      `https://task-manage-r5jxfqrod-th-raju.vercel.app/api/v1/task/${task._id}`,
+      `https://task-manage-9e14yw343-th-raju.vercel.app/api/v1/task/${task._id}`,
       {
         method: "DELETE",
         headers: {
