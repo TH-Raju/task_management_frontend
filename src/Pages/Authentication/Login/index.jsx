@@ -1,13 +1,15 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unescaped-entities */
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import toast, { Toaster } from "react-hot-toast";
 import PrivateRoute from "../../../SecureRoute/PrivateRoute";
+import { ContextData } from "../../../Context";
 
 const Login = () => {
+  const { userId, setUserId } = useContext(ContextData);
   const { register, handleSubmit, reset } = useForm();
   const [errorMsg, setErrorMsg] = useState("");
   const [visible, setVisible] = useState(false);
@@ -38,8 +40,10 @@ const Login = () => {
           console.log(data);
           toast.success("Log in Successful.");
           cookies.set("email", data?.data.email, { path: "/" });
+          setUserId(data?.data._id)
           cookies.set("name", data?.data.name, { path: "/" });
           cookies.set("role", data?.data.role, { path: "/" });
+          cookies.set("id", data?.data._id, { path: "/" });
           localStorage.setItem(
             "accessToken",
             `bearer ${data?.data.accessToken}`

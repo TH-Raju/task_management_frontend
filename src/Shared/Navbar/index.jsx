@@ -56,7 +56,7 @@ const Navbar = () => {
 
   return (
     <div className="">
-      <div className="navbar bg-gray-400 hidden lg:block ">
+      <div className="navbar bg-gray-500 hidden lg:block ">
         <div className="navbar-start">
           <a className="btn btn-ghost normal-case text-xl">{siteName}</a>
         </div>
@@ -85,7 +85,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <div className="navbar bg-gray-400 lg:-mt-10">
+      <div className="navbar bg-gray-500 lg:-mt-10">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -106,7 +106,7 @@ const Navbar = () => {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content  z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-sm dropdown-content  z-[1] p-2 shadow bg-base-100 rounded-box w-52 text-black"
             >
               {menuItems}
             </ul>
@@ -116,7 +116,7 @@ const Navbar = () => {
           </a>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 text-md font-bold">
+          <ul className="menu menu-horizontal px-1 text-md font-bold ">
             {menuItems}
           </ul>
         </div>
