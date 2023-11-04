@@ -5,10 +5,15 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Cookies from "universal-cookie";
 import toast from "react-hot-toast";
 import ConfirmModal from "../../Shared/ConfirmModal";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import EditModal from "../EditModal";
 
 const Task = () => {
   const { theme } = useContext(ContextData);
   const [deleteUser, setDeleteUser] = useState(null);
+  const navigate = useNavigate();
+  const { register, handleSubmit, reset } = useForm();
   const cookies = new Cookies();
   const userEmail = cookies.get("email");
   const { data: tasks = [], refetch } = useQuery({
@@ -25,7 +30,7 @@ const Task = () => {
   });
 
   refetch();
-  console.log(tasks);
+  //   console.log(tasks);
 
   useEffect(() => {
     refetch();
@@ -63,7 +68,9 @@ const Task = () => {
           >
             <details className="group ">
               <summary className="flex items-center justify-between gap-1.5 rounded-lg bg-gray-50 p-4 text-gray-900">
-                <h2 className="font-medium">{task.title}</h2>
+                <div className="w-[30%] ">
+                  <h2 className="font-medium">{task.title}</h2>
+                </div>
                 <h2 className="text-xs">{task.time}</h2>
                 <h2 className="text-xs">{task.date}</h2>
 
@@ -86,14 +93,20 @@ const Task = () => {
                   <div className="border border-blue-700 rounded-lg">
                     <div className="dropdown ">
                       <label tabIndex={0} className="btn m-1 btn-xs">
-                        Click
+                        option
                       </label>
                       <ul
                         tabIndex={0}
                         className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32"
                       >
                         <li>
-                          <button className="btn btn-primary btn-sm">
+                          <button
+                            className="btn btn-primary btn-sm"
+                            // onClick={() => handleMakeUser(task._id)}
+                            onClick={() =>
+                              document.getElementById(task._id).showModal()
+                            }
+                          >
                             Edit
                           </button>
                         </li>
@@ -101,7 +114,7 @@ const Task = () => {
                           <label
                             onClick={() => setDeleteUser(task)}
                             htmlFor="confirmation-modal"
-                            className="btn bg-red-600 hover:bg-red-900 text-white  btn-sm "
+                            className="btn bg-red-600 mt-1 hover:bg-red-900 text-white  btn-sm "
                           >
                             Delete
                           </label>
@@ -121,6 +134,7 @@ const Task = () => {
               </p>
             </details>
           </div>
+          <EditModal id={task._id} task={task} refetch={refetch} />
         </div>
       ))}
       {deleteUser && (
