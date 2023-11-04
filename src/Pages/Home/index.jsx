@@ -5,6 +5,7 @@ import Task from "../../Componants/Task";
 import { useForm } from "react-hook-form";
 import Cookies from "universal-cookie";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const { register, handleSubmit, reset } = useForm();
@@ -12,6 +13,7 @@ const Home = () => {
   const { userId, setUserId, theme } = useContext(ContextData);
   const cookies = new Cookies();
   const userEmail = cookies.get("email");
+  const navigate = useNavigate();
   const onSubmit = async (data) => {
     console.log(data);
     fetch("http://localhost:5000/api/v1/task/create", {
@@ -28,8 +30,8 @@ const Home = () => {
           // console.log(data);
           toast.success("Task Added Successfully.");
           document.getElementById("my_modal_5").close();
-
-          // reset();
+          navigate("/");
+          reset();
         } else {
           toast.error("Can't added Task");
         }

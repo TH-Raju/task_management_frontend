@@ -1,11 +1,14 @@
 /* eslint-disable no-unused-vars */
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ContextData } from "../../Context";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Cookies from "universal-cookie";
+import toast from "react-hot-toast";
+import ConfirmModal from "../../Shared/ConfirmModal";
 
 const Task = () => {
   const { theme } = useContext(ContextData);
+  const [deleteUser, setDeleteUser] = useState(null);
   const cookies = new Cookies();
   const userEmail = cookies.get("email");
   const { data: tasks = [], refetch } = useQuery({
@@ -21,14 +24,38 @@ const Task = () => {
     },
   });
 
+  refetch();
   console.log(tasks);
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
+
+  const closeModal = () => {
+    setDeleteUser(null);
+  };
+  const handleDeleteUser = (task) => {
+    fetch(`http://localhost:5000/api/v1/task/${task._id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          toast.success("Task Deleted successfully");
+          refetch();
+        }
+      });
+  };
 
   return (
     <div>
       {tasks.map((task) => (
         <div key={task._id}>
           <div
-            className={`space-y-4 rounded-lg ${
+            className={`space-y-4 rounded-lg my-5 border border-blue-600 ${
               theme
                 ? "shadow-[4px_-2px_45px_2px_#9ae6b4]"
                 : "shadow-[-3px_1px_23px_3px_#9ae6b4]"
@@ -71,9 +98,13 @@ const Task = () => {
                           </button>
                         </li>
                         <li>
-                          <button className="btn btn-warning btn-sm mt-3">
+                          <label
+                            onClick={() => setDeleteUser(task)}
+                            htmlFor="confirmation-modal"
+                            className="btn bg-red-600 hover:bg-red-900 text-white  btn-sm "
+                          >
                             Delete
-                          </button>
+                          </label>
                         </li>
                       </ul>
                     </div>
@@ -92,6 +123,16 @@ const Task = () => {
           </div>
         </div>
       ))}
+      {deleteUser && (
+        <ConfirmModal
+          title={`Are You sure you want to delete?`}
+          message={`If You delete ${deleteUser.title}. It cannot be undone.`}
+          closeModal={closeModal}
+          successButtonName="Delete"
+          successAction={handleDeleteUser}
+          modalData={deleteUser}
+        ></ConfirmModal>
+      )}
     </div>
   );
 };
