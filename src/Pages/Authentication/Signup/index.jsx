@@ -23,16 +23,13 @@ const Signup = () => {
   }
   const onSubmit = async (data) => {
     // console.log(data);
-    fetch(
-      "https://task-manage-backend-dh7dvo8tt-th-raju.vercel.app/api/v1/signup",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }
-    )
+    fetch("https://task-manage-r5jxfqrod-th-raju.vercel.app/api/v1/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);

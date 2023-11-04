@@ -17,7 +17,7 @@ const Home = () => {
   const onSubmit = async (data) => {
     console.log(data);
     fetch(
-      "https://task-manage-backend-dh7dvo8tt-th-raju.vercel.app/api/v1/task/create",
+      "https://task-manage-r5jxfqrod-th-raju.vercel.app/api/v1/task/create",
       {
         method: "POST",
         headers: {

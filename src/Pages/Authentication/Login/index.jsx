@@ -11,9 +11,7 @@ import { ContextData } from "../../../Context";
 const Login = () => {
   const { userId, setUserId } = useContext(ContextData);
   const { register, handleSubmit, reset } = useForm();
-  const [errorMsg, setErrorMsg] = useState("");
   const [visible, setVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
   const cookies = new Cookies();
   const navigate = useNavigate();
 
@@ -26,20 +24,16 @@ const Login = () => {
   const onSubmit = async (data) => {
     // console.log(data);
     // setLoading(true);
-    fetch(
-      "https://task-manage-backend-dh7dvo8tt-th-raju.vercel.app/api/v1/login",
-      {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }
-    )
+    fetch("https://task-manage-r5jxfqrod-th-raju.vercel.app/api/v1/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         if (data.success) {
           // console.log(data);
           toast.success("Log in Successful.");
@@ -53,11 +47,9 @@ const Login = () => {
             `bearer ${data?.data.accessToken}`
           );
           reset();
-          setLoading(false);
           navigate("/");
         } else {
           toast.error("Login Failed");
-          setErrorMsg(data.message);
         }
       });
   };
@@ -139,9 +131,6 @@ const Login = () => {
                 </button>
               </span>
             </div>
-            {errorMsg && (
-              <p className=" mt-3 text-red-500    p-3">{errorMsg + "!!"}</p>
-            )}
           </div>
 
           <div className="flex items-center justify-between">
