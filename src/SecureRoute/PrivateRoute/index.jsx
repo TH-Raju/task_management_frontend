@@ -9,14 +9,14 @@ const PrivateRoute = ({ children }) => {
   const cookie = new Cookies();
   const userEmail = cookie?.get("email");
   const location = useLocation();
-  let accessToken = localStorage.getItem("accessToken");
-  accessToken = accessToken.replace("bearer ", "");
-  //   console.log("acc", accessToken);
+  // let accessToken = localStorage.getItem("accessToken");
+  // accessToken = accessToken?.replace("bearer ", "");
+  // //   console.log("acc", accessToken);
 
-  const decodedToken = jwtDecode(accessToken);
-  //   console.log(userEmail);
-  //   console.log(decodedToken);
-  if (userEmail == decodedToken.email) {
+  // const decodedToken = jwtDecode(accessToken, { header: true });
+  // //   console.log(userEmail);
+  // //   console.log(decodedToken);
+  if (userEmail) {
     return children;
   }
 
